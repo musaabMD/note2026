@@ -18,9 +18,9 @@ import {
   Download,
   Eye,
   FileIcon,
-  FilePdf,
+  File,
   FileSpreadsheet,
-  FileImage,
+  Image as FileImage,
   Clock,
   Sparkles,
 } from "lucide-react";
@@ -115,7 +115,7 @@ function formatDate(timestamp) {
 function getFileIcon(fileType) {
   switch (fileType) {
     case "pdf":
-      return FilePdf;
+      return File; // Using File icon for PDFs
     case "xlsx":
     case "xls":
       return FileSpreadsheet;
