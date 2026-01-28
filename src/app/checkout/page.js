@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SignedIn, ClerkLoaded } from "@clerk/nextjs";
 import {
@@ -228,7 +228,7 @@ function CheckoutSummary() {
   );
 }
 
-export default function CheckoutPage() {
+function CheckoutPageContent() {
   const searchParams = useSearchParams();
   const planId = searchParams.get("planId") || "";
   const planPeriod = searchParams.get("period") || "month";
@@ -273,5 +273,22 @@ export default function CheckoutPage() {
         </CheckoutProvider>
       </main>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex flex-col bg-background">
+          <SiteHeader />
+          <main className="flex-1 flex items-center justify-center">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          </main>
+        </div>
+      }
+    >
+      <CheckoutPageContent />
+    </Suspense>
   );
 }
